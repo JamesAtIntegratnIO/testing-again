@@ -1,0 +1,34 @@
+# Score.dev specification for testing-again Backend
+apiVersion: score.dev/v1b1
+kind: Workload
+
+metadata:
+  name: testing-again-backend
+
+spec:
+  containers:
+    backend:
+      image: testing-again/backend:latest
+      variables:
+        PORT: "8080"
+        NODE_ENV: "production"
+        LOG_LEVEL: "info"
+      ports:
+        - port: 8080
+          protocol: TCP
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+
+  service:
+    ports:
+      api:
+        port: 8080
+        targetPort: 8080
+        protocol: TCP
+
+  resources:
